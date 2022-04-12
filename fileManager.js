@@ -1,24 +1,21 @@
 const fs = require("fs");
+const util = require("util");
 const cp = require("child_process");
+const { throws } = require("assert");
 
 class FileManager {
     constructor() {}
 
     listElement = (path) => {
         if (!path || path === undefined) {
-            path = "";
+            path = ".";
         }
 
-        console.log(path);
-
-        cp.exec(`dir ${path} /b`, (err, data) => {
-            if (err) {
-                throw err;
-            }
-
-            const test = data.split("\r\n").slice(0, -1);
-            console.log(test);
-        });
+        try {
+            return { error: "", result: fs.readdirSync(path) };
+        } catch (error) {
+            return { error: "No such directory found.", result: [] };
+        }
     };
 
     newFolder = (newFolderName) => {
@@ -34,6 +31,7 @@ class FileManager {
     };
 
     newFile = (fileName, fileContent) => {
+        // if(!fileContent)
         fs.writeFile(fileName, fileContent.trim(), (err) => {
             if (err) {
                 throw err;

@@ -19,6 +19,7 @@
             <!-- List files and folders -->
             <div class="col">
                 <form action="/listElements" method="post">
+                    <%= errorMessage %>
                     <div class="mb-3">
                         <label for="areaToList" class="form-label">Emplacement</label>
                         <input type="text" class="form-control" id="areaToList" name="areaToList">
