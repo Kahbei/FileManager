@@ -6,13 +6,18 @@ const PORT = 3000;
 
 let errorMessage = "";
 let elementsInDir = [];
+let commandReturn = "";
 
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) =>
-    res.render("index", { listElements: elementsInDir, errorMessage: errorMessage })
+    res.render("index", {
+        listElements: elementsInDir,
+        errorMessage: errorMessage,
+        commandReturn: commandReturn,
+    })
 );
 
 app.post("/listElements", async (req, res, next) => {
@@ -47,6 +52,43 @@ app.post("/newFolder", async (req, res, next) => {
     }
 });
 
-app.post("");
+app.post("/deleteFolder", async (req, res, next) => {
+    try {
+        const deleteFolder = await fm.deleteFolder(req.body.deleteFolder);
+        errorMessage = deleteFolder.error;
+        res.redirect("/");
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.post("/deleteFile", async (req, res, next) => {
+    try {
+        const deleteFile = await fm.deleteFile(req.body.deleteFile);
+        res.redirect("/");
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.post("/changeEntity", async (req, res, next) => {
+    try {
+        const moveEntity = await fm.moveEntity(req.body.oldEntityName, req.body.newEntityName);
+        res.redirect("/");
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.post("/useCommand", async (req, res, next) => {
+    try {
+        const commandResult = await fm.useCommand(req.body.commandName);
+        commandReturn = commandResult.commandResult;
+        errorMessage = commandResult.error;
+        res.redirect("/");
+    } catch (error) {
+        next(error);
+    }
+});
 
 app.listen(PORT, () => console.log(`Server listening port ${PORT}`));

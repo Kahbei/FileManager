@@ -26,6 +26,8 @@ class FileManager {
                 if (err) {
                     throw err;
                 }
+
+                console.log(`${newFolderName} created !`);
             });
         }
     };
@@ -39,6 +41,46 @@ class FileManager {
 
             console.log(`${fileName} saved !`);
         });
+    };
+
+    deleteFolder = (folderName) => {
+        try {
+            fs.readdirSync(folderName).map((file) => fs.unlinkSync(`${folderName}/${file}`));
+            fs.rmdir(folderName, (err) => {
+                if (err) {
+                    throw err;
+                }
+
+                console.log("Delete done");
+            });
+
+            return { error: "" };
+        } catch (error) {
+            return { error: "Something went wrong with the delete" };
+        }
+    };
+
+    deleteFile = (fileName) => {
+        setTimeout(() => {
+            fs.unlinkSync(fileName);
+        }, 1000);
+    };
+
+    moveEntity = (oldEntityName, newEntityName) => {
+        fs.rename(oldEntityName, newEntityName, (err) => {
+            if (err) {
+                throw err;
+            }
+        });
+    };
+
+    useCommand = (commandName) => {
+        try {
+            const commandResult = cp.execSync(commandName).toString("utf-8");
+            return { commandResult: commandResult, error: "" };
+        } catch (error) {
+            return { commandResult: "", error: error };
+        }
     };
 }
 

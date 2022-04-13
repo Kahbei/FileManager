@@ -16,6 +16,7 @@
 <body>
     <div class="container">
         <div class="row">
+
             <!-- List files and folders -->
             <div class="col">
                 <form action="/listElements" method="post">
@@ -38,6 +39,7 @@
                     </ul>
                 </div>
             </div>
+            <!----------------------->
 
             <!-- Create new file -->
             <div class="col">
@@ -53,6 +55,7 @@
                     <button type="submit" class="btn btn-primary">Add new file</button>
                   </form>
             </div>
+            <!----------------------->
 
             <!-- Create new folder -->
             <div class="col">
@@ -64,11 +67,64 @@
                     <button type="submit" class="btn btn-primary">Add new folder</button>
                   </form>
             </div>
+            <!----------------------->
         </div>
+
+
         <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
+            <!-- Delete folder -->
+            <div class="col">
+                    <form action="/deleteFolder" method="post">
+                        <div class="mb-3">
+                          <label for="deleteFolder" class="form-label">Delete Folder</label>
+                          <input type="text" class="form-control" id="deleteFolder" name="deleteFolder" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Delete Folder</button>
+                      </form>
+            </div>
+            <!-- Delete File -->
+            <div class="col">
+                <form action="/deleteFile" method="post">
+                    <div class="mb-3">
+                      <label for="deleteFile" class="form-label">Delete File</label>
+                      <input type="text" class="form-control" id="deleteFile" name="deleteFile" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Delete File</button>
+                  </form>
+            </div>
+
+            <!-- Move or rename file / folder -->
+            <div class="col">
+                <form action="/changeEntity" method="post">
+                    <div class="mb-3">
+                      <label for="oldEntityName" class="form-label">Old Name / Emplacement</label>
+                      <input type="text" class="form-control" id="oldEntityName" name="oldEntityName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newEntityName" class="form-label">New Name / Emplacement</label>
+                        <input type="text" class="form-control" id="newEntityName" name="newEntityName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Change</button>
+                  </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Use command -->
+            <div class="col">
+                <form action="/useCommand" method="post">
+                    <div class="mb-3">
+                      <label for="commandName" class="form-label">Command to execute</label>
+                      <input type="text" class="form-control" id="commandName" name="commandName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Execute</button>
+                  </form>
+            </div>
+            <div>
+                <% if(commandReturn){ %>
+                    <p><%= commandReturn %></p>
+                <% } %>
+            </div>
         </div>
     </div>
 </body>
