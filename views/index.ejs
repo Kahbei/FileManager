@@ -14,117 +14,132 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand">
+                Error : <%= errorMessage %>
+            </a>
+        </div>
+    </nav>
     <div class="container">
-        <div class="row">
-
-            <!-- List files and folders -->
-            <div class="col">
-                <form action="/listElements" method="post">
-                    <%= errorMessage %>
-                    <div class="mb-3">
-                        <label for="areaToList" class="form-label">Emplacement</label>
-                        <input type="text" class="form-control" id="areaToList" name="areaToList">
-                    </div>
-                    <!-- <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="radioRecursive" name="listRecursive">
-                        <label class="form-check-label" for="radioRecursive">Recursive ou non ?</label>
-                    </div> -->
-                    <button type="submit" class="btn btn-primary">Afficher liste des fichiers</button>
-                </form>
-                <div>
-                    <ul class="list-group list-group-flush">
-                        <% for( elements of listElements){ %>
-                            <li class="list-group-item"><%= elements %></li>
-                        <% } %>
-                    </ul>
-                </div>
-            </div>
-            <!----------------------->
+        <div class="row my-5 border border-5 rounded-3">
 
             <!-- Create new file -->
-            <div class="col">
+            <div class="col m-4">
                 <form action="/newFile" method="post">
                     <div class="mb-3">
-                      <label for="newFile" class="form-label">New File</label>
-                      <input type="text" class="form-control" id="newFile" name="newFile" required>
+                        <label for="newFile" class="form-label">New File</label>
+                        <input type="text" class="form-control" id="newFile" name="newFile" required>
                     </div>
                     <div class="mb-3">
                         <label for="fileContent" class="form-label">Set the file content</label>
                         <textarea class="form-control" id="fileContent" rows="3" name="fileContent"></textarea>
-                      </div>
-                    <button type="submit" class="btn btn-primary">Add new file</button>
-                  </form>
-            </div>
-            <!----------------------->
-
-            <!-- Create new folder -->
-            <div class="col">
-                <form action="/newFolder" method="post">
-                    <div class="mb-3">
-                      <label for="newFolder" class="form-label">New Folder</label>
-                      <input type="text" class="form-control" id="newFolder" name="newFolder" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add new folder</button>
-                  </form>
+                    <button type="submit" class="btn btn-primary">Add new file</button>
+                </form>
             </div>
             <!----------------------->
-        </div>
 
-
-        <div class="row">
-            <!-- Delete folder -->
-            <div class="col">
-                    <form action="/deleteFolder" method="post">
-                        <div class="mb-3">
-                          <label for="deleteFolder" class="form-label">Delete Folder</label>
-                          <input type="text" class="form-control" id="deleteFolder" name="deleteFolder" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Delete Folder</button>
-                      </form>
-            </div>
             <!-- Delete File -->
-            <div class="col">
+            <div class="col m-4">
                 <form action="/deleteFile" method="post">
                     <div class="mb-3">
-                      <label for="deleteFile" class="form-label">Delete File</label>
-                      <input type="text" class="form-control" id="deleteFile" name="deleteFile" required>
+                        <label for="deleteFile" class="form-label">Delete File</label>
+                        <input type="text" class="form-control" id="deleteFile" name="deleteFile" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Delete File</button>
-                  </form>
+                </form>
             </div>
+            <!----------------------->
 
             <!-- Move or rename file / folder -->
-            <div class="col">
+            <div class="col m-4">
                 <form action="/changeEntity" method="post">
                     <div class="mb-3">
-                      <label for="oldEntityName" class="form-label">Old Name / Emplacement</label>
-                      <input type="text" class="form-control" id="oldEntityName" name="oldEntityName" required>
+                        <label for="oldEntityName" class="form-label">Old Name / Emplacement</label>
+                        <input type="text" class="form-control" id="oldEntityName" name="oldEntityName" required>
                     </div>
                     <div class="mb-3">
                         <label for="newEntityName" class="form-label">New Name / Emplacement</label>
                         <input type="text" class="form-control" id="newEntityName" name="newEntityName" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Change</button>
-                  </form>
+                </form>
             </div>
+            <!----------------------->
+
+        </div>
+        
+        
+        <div class="row my-5 border border-5 rounded-3">
+
+            <!-- Create new folder -->
+            <div class="col m-4">
+                <form action="/newFolder" method="post">
+                    <div class="mb-3">
+                        <label for="newFolder" class="form-label">New Folder</label>
+                        <input type="text" class="form-control" id="newFolder" name="newFolder" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add new folder</button>
+                </form>
+            </div>
+            <!----------------------->
+
+            <!-- Delete folder -->
+            <div class="col m-4">
+                <form action="/deleteFolder" method="post">
+                    <div class="mb-3">
+                        <label for="deleteFolder" class="form-label">Delete Folder</label>
+                        <input type="text" class="form-control" id="deleteFolder" name="deleteFolder" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Delete Folder</button>
+                </form>
+            </div>
+            <!----------------------->
+
         </div>
 
-        <div class="row">
+        <div class="row my-5 border-top">
+            <!-- List files and folders -->
+            <div class="col m-4">
+                <form action="/listElements" method="post">
+                    <div class="mb-3">
+                        <label for="areaToList" class="form-label">Emplacement</label>
+                        <input type="text" class="form-control" id="areaToList" name="areaToList">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Afficher liste des fichiers</button>
+                </form>
+                <div>
+                    <ul class="list-group list-group-flush">
+                        <% for( elements of listElements){ %>
+                            <li class="list-group-item">
+                                <%= elements %>
+                            </li>
+                            <% } %>
+                    </ul>
+                </div>
+            </div>
+            <!----------------------->
+
             <!-- Use command -->
-            <div class="col">
+            <div class="col m-4">
                 <form action="/useCommand" method="post">
                     <div class="mb-3">
-                      <label for="commandName" class="form-label">Command to execute</label>
-                      <input type="text" class="form-control" id="commandName" name="commandName" required>
+                        <label for="commandName" class="form-label">Command to execute</label>
+                        <input type="text" class="form-control" id="commandName" name="commandName" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Execute</button>
-                  </form>
+                </form>
+                <div>
+                    <% if(commandReturn){ %>
+                        <p>
+                            <%= commandReturn %>
+                        </p>
+                        <% } %>
+                </div>
             </div>
-            <div>
-                <% if(commandReturn){ %>
-                    <p><%= commandReturn %></p>
-                <% } %>
-            </div>
+            <!----------------------->
+
         </div>
     </div>
 </body>

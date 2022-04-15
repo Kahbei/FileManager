@@ -34,6 +34,7 @@ app.post("/listElements", async (req, res, next) => {
 app.post("/newFile", async (req, res, next) => {
     try {
         const createFile = await fm.newFile(req.body.newFile, req.body.fileContent);
+        errorMessage = createFile.error;
         res.redirect("/");
     } catch (error) {
         next(error);
@@ -44,7 +45,7 @@ app.post("/newFolder", async (req, res, next) => {
     try {
         const createFolder = await fm.newFolder(req.body.newFolder);
         const listElement = await fm.listElement(req.body.areaToList);
-        errorMessage = listElement.error;
+        errorMessage = createFolder.error;
         elementsInDir = listElement.result;
         res.redirect("/");
     } catch (error) {
@@ -65,6 +66,7 @@ app.post("/deleteFolder", async (req, res, next) => {
 app.post("/deleteFile", async (req, res, next) => {
     try {
         const deleteFile = await fm.deleteFile(req.body.deleteFile);
+        errorMessage = deleteFile.error;
         res.redirect("/");
     } catch (error) {
         next(error);
@@ -74,6 +76,7 @@ app.post("/deleteFile", async (req, res, next) => {
 app.post("/changeEntity", async (req, res, next) => {
     try {
         const moveEntity = await fm.moveEntity(req.body.oldEntityName, req.body.newEntityName);
+        errorMessage = moveEntity.error;
         res.redirect("/");
     } catch (error) {
         next(error);

@@ -1,7 +1,6 @@
 const fs = require("fs");
 const util = require("util");
 const cp = require("child_process");
-const { throws } = require("assert");
 
 class FileManager {
     constructor() {}
@@ -13,73 +12,85 @@ class FileManager {
 
         try {
             return { error: "", result: fs.readdirSync(path) };
-        } catch (error) {
+        } catch (err) {
             return { error: "No such directory found.", result: [] };
         }
     };
 
     newFolder = (newFolderName) => {
         if (fs.existsSync(newFolderName)) {
-            console.log("The directory already exist");
+            return { error: "The directory already exist" };
         } else {
-            fs.mkdir(newFolderName, (err) => {
-                if (err) {
-                    throw err;
-                }
-
-                console.log(`${newFolderName} created !`);
-            });
+            try {
+                fs.mkdirSync(newFolderName);
+                return { error: "" };
+            } catch (err) {
+                return { error: "Something went wrong with the folder creations" };
+            }
         }
     };
 
     newFile = (fileName, fileContent) => {
-        // if(!fileContent)
-        fs.writeFile(fileName, fileContent.trim(), (err) => {
-            if (err) {
-                throw err;
+        if (fs.existsSync(fileName)) {
+            return { error: "The file already exist" };
+        } else {
+            try {
+                fs.writeFileSync(fileName, fileContent.trim());
+                return { error: "" };
+            } catch (err) {
+                return { error: "Something went wrong with the file creations" };
             }
-
-            console.log(`${fileName} saved !`);
-        });
+        }
     };
 
     deleteFolder = (folderName) => {
-        try {
-            fs.readdirSync(folderName).map((file) => fs.unlinkSync(`${folderName}/${file}`));
-            fs.rmdir(folderName, (err) => {
-                if (err) {
-                    throw err;
-                }
+        if (fs.existsSync(folderName)) {
+            try {
+                fs.readdirSync(folderName).map((file) => fs.unlinkSync(`${folderName}/${file}`));
+                fs.rmdirSync(folderName);
 
-                console.log("Delete done");
-            });
-
-            return { error: "" };
-        } catch (error) {
-            return { error: "Something went wrong with the delete" };
+                return { error: "" };
+            } catch (err) {
+                return { error: "Something went wrong with the folder delete" };
+            }
+        } else {
+            return { error: "The folder doesn't exist" };
         }
     };
 
     deleteFile = (fileName) => {
-        setTimeout(() => {
-            fs.unlinkSync(fileName);
-        }, 1000);
+        if (fs.existsSync(fileName)) {
+            try {
+                fs.unlinkSync(fileName);
+
+                return { error: "" };
+            } catch (err) {
+                return { error: "Something went wrong with the file delete" };
+            }
+        } else {
+            return { error: "The file doesn't exist" };
+        }
     };
 
     moveEntity = (oldEntityName, newEntityName) => {
-        fs.rename(oldEntityName, newEntityName, (err) => {
-            if (err) {
-                throw err;
+        if (fs.existsSync(oldEntityName)) {
+            try {
+                fs.renameSync(oldEntityName, newEntityName);
+                return { error: "" };
+            } catch (err) {
+                return { error: "Something went wrong" };
             }
-        });
+        } else {
+            return { error: "The file doesn't exist" };
+        }
     };
 
     useCommand = (commandName) => {
         try {
             const commandResult = cp.execSync(commandName).toString("utf-8");
             return { commandResult: commandResult, error: "" };
-        } catch (error) {
-            return { commandResult: "", error: error };
+        } catch (err) {
+            return { commandResult: "", error: "The command went wrong" };
         }
     };
 }
