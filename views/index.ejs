@@ -28,6 +28,10 @@
             <div class="col m-4">
                 <form action="/newFile" method="post">
                     <div class="mb-3">
+                        <label for="pathToUse" class="form-label">Path for the action</label>
+                        <input type="text" class="form-control" id="pathToUse" name="pathToUse">
+                    </div>
+                    <div class="mb-3">
                         <label for="newFile" class="form-label">New File</label>
                         <input type="text" class="form-control" id="newFile" name="newFile" required>
                     </div>
@@ -44,6 +48,10 @@
             <div class="col m-4">
                 <form action="/deleteFile" method="post">
                     <div class="mb-3">
+                        <label for="pathToUse" class="form-label">Path for the action</label>
+                        <input type="text" class="form-control" id="pathToUse" name="pathToUse">
+                    </div>
+                    <div class="mb-3">
                         <label for="deleteFile" class="form-label">Delete File</label>
                         <input type="text" class="form-control" id="deleteFile" name="deleteFile" required>
                     </div>
@@ -55,13 +63,25 @@
             <!-- Move or rename file / folder -->
             <div class="col m-4">
                 <form action="/changeEntity" method="post">
-                    <div class="mb-3">
-                        <label for="oldEntityName" class="form-label">Old Name / Emplacement</label>
-                        <input type="text" class="form-control" id="oldEntityName" name="oldEntityName" required>
+                    <div class="border p-4 my-4">
+                        <div class="mb-3">
+                            <label for="pathToUse1" class="form-label">Path of the old name / emplacement</label>
+                            <input type="text" class="form-control" id="pathToUse1" name="pathToUse1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="oldEntityName" class="form-label">Old Name / Emplacement</label>
+                            <input type="text" class="form-control" id="oldEntityName" name="oldEntityName" required>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="newEntityName" class="form-label">New Name / Emplacement</label>
-                        <input type="text" class="form-control" id="newEntityName" name="newEntityName" required>
+                    <div class="border p-4 my-4">
+                        <div class="mb-3">
+                            <label for="pathToUse2" class="form-label">Path for the new name / emplacement</label>
+                            <input type="text" class="form-control" id="pathToUse2" name="pathToUse2">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newEntityName" class="form-label">New Name / Emplacement</label>
+                            <input type="text" class="form-control" id="newEntityName" name="newEntityName" required>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Change</button>
                 </form>
@@ -77,6 +97,10 @@
             <div class="col m-4">
                 <form action="/newFolder" method="post">
                     <div class="mb-3">
+                        <label for="pathToUse" class="form-label">Path for the action</label>
+                        <input type="text" class="form-control" id="pathToUse" name="pathToUse">
+                    </div>
+                    <div class="mb-3">
                         <label for="newFolder" class="form-label">New Folder</label>
                         <input type="text" class="form-control" id="newFolder" name="newFolder" required>
                     </div>
@@ -88,6 +112,10 @@
             <!-- Delete folder -->
             <div class="col m-4">
                 <form action="/deleteFolder" method="post">
+                    <div class="mb-3">
+                        <label for="pathToUse" class="form-label">Path for the action</label>
+                        <input type="text" class="form-control" id="pathToUse" name="pathToUse">
+                    </div>
                     <div class="mb-3">
                         <label for="deleteFolder" class="form-label">Delete Folder</label>
                         <input type="text" class="form-control" id="deleteFolder" name="deleteFolder" required>

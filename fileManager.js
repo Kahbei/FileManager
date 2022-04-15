@@ -5,6 +5,11 @@ const cp = require("child_process");
 class FileManager {
     constructor() {}
 
+    /**
+     * Liste les fichiers et dossiers contenant dans dossier spécifié dans path
+     * @param {string} path Si non remplis, alors celui-ci va afficher le contenu du dossier FileManager
+     * @returns
+     */
     listElement = (path) => {
         if (!path || path === undefined) {
             path = ".";
@@ -17,6 +22,11 @@ class FileManager {
         }
     };
 
+    /**
+     * Créer un dossier suivant le nom newFolderName donné
+     * @param {string} newFolderName Le chemin doit être spécifié dans le nom, sinon le dossier va être créer dans FileManager
+     * @returns
+     */
     newFolder = (newFolderName) => {
         if (fs.existsSync(newFolderName)) {
             return { error: "The directory already exist" };
@@ -30,6 +40,12 @@ class FileManager {
         }
     };
 
+    /**
+     * Création d'un fichier suivant son nom et son contenu
+     * @param {string} fileName Le chemin doit être spécifié dans le nom, sinon le dossier va être créer dans FileManager
+     * @param {string} fileContent Peut ne pas être remplis.
+     * @returns
+     */
     newFile = (fileName, fileContent) => {
         if (fs.existsSync(fileName)) {
             return { error: "The file already exist" };
@@ -43,6 +59,11 @@ class FileManager {
         }
     };
 
+    /**
+     * Suppression d'un dossier
+     * @param {string} folderName
+     * @returns
+     */
     deleteFolder = (folderName) => {
         if (fs.existsSync(folderName)) {
             try {
@@ -58,6 +79,11 @@ class FileManager {
         }
     };
 
+    /**
+     * Suppression d'un fichier
+     * @param {string} fileName
+     * @returns
+     */
     deleteFile = (fileName) => {
         if (fs.existsSync(fileName)) {
             try {
@@ -72,6 +98,12 @@ class FileManager {
         }
     };
 
+    /**
+     * Renommage ou déplacement d'un fichier ou dossier
+     * @param {string} oldEntityName
+     * @param {string} newEntityName
+     * @returns
+     */
     moveEntity = (oldEntityName, newEntityName) => {
         if (fs.existsSync(oldEntityName)) {
             try {
@@ -85,6 +117,11 @@ class FileManager {
         }
     };
 
+    /**
+     * Exécution d'une commande donné selon commandName
+     * @param {string} commandName
+     * @returns
+     */
     useCommand = (commandName) => {
         try {
             const commandResult = cp.execSync(commandName).toString("utf-8");
